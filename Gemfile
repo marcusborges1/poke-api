@@ -27,6 +27,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 # HTTP client
 gem 'httparty', '~> 0.13.7'
+# Storage from AWS (S3)
+gem 'aws-sdk-s3', '~> 1', require: false
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
