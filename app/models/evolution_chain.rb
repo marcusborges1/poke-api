@@ -1,0 +1,2 @@
+class EvolutionChain < ApplicationRecord
+end
