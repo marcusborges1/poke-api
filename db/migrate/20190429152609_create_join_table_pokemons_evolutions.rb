@@ -1,4 +1,4 @@
-class CreateJoinTablePokemonEvolution < ActiveRecord::Migration[5.2]
+class CreateJoinTablePokemonsEvolutions < ActiveRecord::Migration[5.2]
   def change
     create_table :pokemons_evolutions, id: false do |t|
       t.integer :pokemon_id, null: false
