@@ -6,4 +6,5 @@ class Pokemon < ApplicationRecord
                           association_foreign_key: :evolution_id
 
   belongs_to :evolution_chain, optional: true
+  has_one_attached :sprite
 end
