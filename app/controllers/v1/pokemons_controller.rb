@@ -1,6 +1,10 @@
 class V1::PokemonsController < ApplicationController
   def index
-    @pokemons = Pokemon.all
+    if params[:name].present?
+      @pokemons = Pokemon.where('name LIKE ?', "%#{params[:name]}%")
+    elsif
+      @pokemons = Pokemon.all
+    end
     render json: @pokemons, status: :ok
   end
 

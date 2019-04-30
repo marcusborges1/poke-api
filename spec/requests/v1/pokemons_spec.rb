@@ -6,14 +6,38 @@ RSpec.describe 'Pokemons API V1', type: :request do
   let(:pokemon_id)  { pokemons.first.id }
 
   describe 'GET /v1/pokemon' do
-    before { get '/v1/pokemon' }
+    context "when a query string with param 'name' does not exist" do
+      before { get '/v1/pokemon' }
 
-    it 'returns all pokemon' do
-      expect(JSON.parse(response.body).size).to eq(10)
+      it 'returns all pokemon' do
+        expect(JSON.parse(response.body).size).to eq(10)
+      end
+
+      it 'returns status code 200' do
+        expect(response).to have_http_status(200)
+      end
     end
 
-    it 'returns status code 200' do
-      expect(response).to have_http_status(200)
+    context "when a query string with param 'name' exists" do
+      before(:context) do
+        create(:pokemon, name: 'pikachu')
+        create(:pokemon, name: 'raichu')
+      end
+
+      it 'returns all pokemon that name matches' do
+        get '/v1/pokemon?name=chu'
+        expect(JSON.parse(response.body).size).to eq(2)
+      end
+
+      it 'returns empty array if no pokemon name matches' do
+        get '/v1/pokemon?name=billy'
+        expect(JSON.parse(response.body)).to be_empty
+      end
+
+      it 'returns status code 200' do
+        get '/v1/pokemon?name=billy'
+        expect(response).to have_http_status(200)
+      end
     end
   end
 
