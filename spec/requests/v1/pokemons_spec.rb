@@ -107,4 +107,22 @@ RSpec.describe 'Pokemons API V1', type: :request do
       end
     end
   end
+
+  describe 'DELETE /v1/pokemon/:id' do
+    before { delete "/v1/pokemon/#{pokemon_id}" }
+
+    it 'returns an empty body' do
+      expect(response.body).to be_empty
+    end
+
+    it 'returns status code 204' do
+      expect(response).to have_http_status(204)
+    end
+
+    it 'deletes the record' do
+      get "/v1/pokemon/#{pokemon_id}"
+      expect(response.body)
+          .to match(/Couldn't find Pokemon/)
+    end
+  end
 end

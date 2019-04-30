@@ -20,6 +20,12 @@ class V1::PokemonsController < ApplicationController
     head :no_content
   end
 
+  def destroy
+    @pokemon = Pokemon.find(params[:id])
+    @pokemon.destroy
+    head :no_content
+  end
+
   private
 
   def pokemon_params

@@ -4,5 +4,6 @@ Rails.application.routes.draw do
     get '/pokemon/:id', to: 'pokemons#show'
     post '/pokemon', to: 'pokemons#create'
     put '/pokemon/:id', to: 'pokemons#update'
+    delete '/pokemon/:id', to: 'pokemons#destroy'
   end
 end
