@@ -92,7 +92,7 @@ RSpec.describe 'Pokemons API V1', type: :request do
       end
     end
 
-    context 'when the record does not exists' do
+    context 'when the record does not exist' do
       let(:unexistent_id) { 500 }
 
       before { put "/v1/pokemon/#{unexistent_id}", params: valid_attributes }
