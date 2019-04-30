@@ -8,4 +8,6 @@ RSpec.describe Pokemon, type: :model do
                                 .with_foreign_key(:pokemon_id) }
 
   it { is_expected.to belong_to(:evolution_chain).optional }
+
+  it { is_expected.to validate_presence_of(:name) }
 end

@@ -7,4 +7,6 @@ class Pokemon < ApplicationRecord
 
   belongs_to :evolution_chain, optional: true
   has_one_attached :sprite
+
+  validates :name, presence: true
 end
