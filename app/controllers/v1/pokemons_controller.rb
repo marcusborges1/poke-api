@@ -5,21 +5,13 @@ class V1::PokemonsController < ApplicationController
   end
 
   def show
-    begin
-      @pokemon = Pokemon.find(params[:id])
-      render json: @pokemon, status: :ok
-    rescue ActiveRecord::RecordNotFound => e
-      render json: e.message, status: :not_found
-    end
+    @pokemon = Pokemon.find(params[:id])
+    render json: @pokemon, status: :ok
   end
 
   def create
-    begin
-      @pokemon = Pokemon.create!(pokemon_params)
-      render json: @pokemon, status: :created
-    rescue ActiveRecord::RecordInvalid => e
-      render json: e.message, status: :unprocessable_entity
-    end
+    @pokemon = Pokemon.create!(pokemon_params)
+    render json: @pokemon, status: :created
   end
 
   private
