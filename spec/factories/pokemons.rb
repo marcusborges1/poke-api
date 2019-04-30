@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :pokemon do
-    name { Faker::Games::Pokemon.unique.name }
+    sequence(:name) { |number| "pokemon#{number}" }
   end
 end
