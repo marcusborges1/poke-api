@@ -42,4 +42,33 @@ RSpec.describe 'Pokemons API V1', type: :request do
       end
     end
   end
+
+  describe 'POST /v1/pokemon' do
+    context 'when the request is valid' do
+      let(:valid_attributes) { { name: 'billy' } }
+
+      before { post '/v1/pokemon', params: valid_attributes }
+
+      it 'creates a pokemon' do
+        expect(JSON.parse(response.body)['name']).to eq('billy')
+      end
+
+      it 'returns status code 201' do
+        expect(response).to have_http_status(201)
+      end
+    end
+
+    context 'when the request is invalid' do
+      before { post '/v1/pokemon', params: { } }
+
+      it 'returns a status code 422' do
+        expect(response).to have_http_status(422)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+          .to match(/Validation failed: Name can't be blank/)
+      end
+    end
+  end
 end
