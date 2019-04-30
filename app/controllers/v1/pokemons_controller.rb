@@ -14,6 +14,12 @@ class V1::PokemonsController < ApplicationController
     render json: @pokemon, status: :created
   end
 
+  def update
+    @pokemon = Pokemon.find(params[:id])
+    @pokemon.update(pokemon_params)
+    head :no_content
+  end
+
   private
 
   def pokemon_params

@@ -71,4 +71,40 @@ RSpec.describe 'Pokemons API V1', type: :request do
       end
     end
   end
+
+  describe 'PUT /v1/pokemon/:id' do
+    let(:valid_attributes) { { name: 'billy' } }
+
+    context 'when the record exists' do
+      before { put "/v1/pokemon/#{pokemon_id}", params: valid_attributes }
+
+      it 'returns an empty body' do
+        expect(response.body).to be_empty
+      end
+
+      it 'returns status code 204' do
+        expect(response).to have_http_status(204)
+      end
+
+      it 'updates the record' do
+        get "/v1/pokemon/#{pokemon_id}"
+        expect(JSON.parse(response.body)['name']).to eq('billy')
+      end
+    end
+
+    context 'when the record does not exists' do
+      let(:unexistent_id) { 500 }
+
+      before { put "/v1/pokemon/#{unexistent_id}", params: valid_attributes }
+
+      it 'returns status code 404' do
+        expect(response).to have_http_status(404)
+      end
+
+      it 'returns a validation failure message' do
+        expect(response.body)
+          .to match(/Couldn't find Pokemon/)
+      end
+    end
+  end
 end
