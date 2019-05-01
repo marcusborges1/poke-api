@@ -1,4 +1,6 @@
 class V1::PokemonsController < ApplicationController
+  before_action :set_pokemon, only: [:show, :update, :destroy]
+
   def index
     if params[:name].present?
       @pokemons = Pokemon.where('name LIKE ?', "%#{params[:name]}%")
@@ -9,7 +11,6 @@ class V1::PokemonsController < ApplicationController
   end
 
   def show
-    @pokemon = Pokemon.find(params[:id])
     render json: @pokemon, status: :ok
   end
 
@@ -19,18 +20,20 @@ class V1::PokemonsController < ApplicationController
   end
 
   def update
-    @pokemon = Pokemon.find(params[:id])
     @pokemon.update(pokemon_params)
     head :no_content
   end
 
   def destroy
-    @pokemon = Pokemon.find(params[:id])
     @pokemon.destroy
     head :no_content
   end
 
   private
+
+  def set_pokemon
+    @pokemon = Pokemon.find(params[:id])    
+  end
 
   def pokemon_params
     params.permit(:name, :sprite)
