@@ -19,8 +19,7 @@ require 'database_cleaner'
 # of increasing the boot-up time by auto-requiring all files in the support
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
-#
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
+Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 # Configure shoulda matchers to use rspec as the test framework and full matcher
 Shoulda::Matchers.configure do |config|
@@ -49,6 +48,9 @@ RSpec.configure do |config|
 
   # add 'FactoryBot' methods
   config.include FactoryBot::Syntax::Methods
+
+  # include RequestSpecHelper as a shared module for all request specs
+  config.include RequestSpecHelper, type: :request
 
   # start by trucating all the table but then use faster transaction strategy the 
   # rest of the time

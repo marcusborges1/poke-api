@@ -10,7 +10,7 @@ RSpec.describe 'Pokemons API V1', type: :request do
       before { get '/v1/pokemon' }
 
       it 'returns all pokemon' do
-        expect(JSON.parse(response.body).size).to eq(10)
+        expect(json.size).to eq(10)
       end
 
       it 'returns status code 200' do
@@ -26,12 +26,12 @@ RSpec.describe 'Pokemons API V1', type: :request do
 
       it 'returns all pokemon that name matches' do
         get '/v1/pokemon?name=chu'
-        expect(JSON.parse(response.body).size).to eq(2)
+        expect(json.size).to eq(2)
       end
 
       it 'returns empty array if no pokemon name matches' do
         get '/v1/pokemon?name=billy'
-        expect(JSON.parse(response.body)).to be_empty
+        expect(json).to be_empty
       end
 
       it 'returns status code 200' do
@@ -46,7 +46,7 @@ RSpec.describe 'Pokemons API V1', type: :request do
 
     context 'when the record exists' do
       it 'returns the pokemon' do
-        expect(JSON.parse(response.body)['id']).to eq(pokemon_id)
+        expect(json['id']).to eq(pokemon_id)
       end
 
       it 'returns status code 200' do
@@ -74,7 +74,7 @@ RSpec.describe 'Pokemons API V1', type: :request do
       before { post '/v1/pokemon', params: valid_attributes }
 
       it 'creates a pokemon' do
-        expect(JSON.parse(response.body)['name']).to eq('billy')
+        expect(json['name']).to eq('billy')
       end
 
       it 'returns status code 201' do
@@ -112,7 +112,7 @@ RSpec.describe 'Pokemons API V1', type: :request do
 
       it 'updates the record' do
         get "/v1/pokemon/#{pokemon_id}"
-        expect(JSON.parse(response.body)['name']).to eq('billy')
+        expect(json['name']).to eq('billy')
       end
     end
 
