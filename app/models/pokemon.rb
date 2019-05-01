@@ -9,4 +9,9 @@ class Pokemon < ApplicationRecord
   has_one_attached :sprite
 
   validates :name, presence: true
+
+  def self.search(name = nil)
+    return Pokemon.where('name LIKE ?', "%#{name}%") if name.present?
+    Pokemon.all
+  end
 end
