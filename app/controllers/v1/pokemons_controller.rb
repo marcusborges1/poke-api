@@ -2,11 +2,7 @@ class V1::PokemonsController < ApplicationController
   before_action :set_pokemon, only: [:show, :update, :destroy]
 
   def index
-    if params[:name].present?
-      @pokemons = Pokemon.where('name LIKE ?', "%#{params[:name]}%")
-    elsif
-      @pokemons = Pokemon.all
-    end
+    @pokemons = Pokemon.search(params[:name])
     render json: @pokemons, status: :ok
   end
 
