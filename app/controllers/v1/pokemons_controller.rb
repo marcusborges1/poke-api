@@ -2,12 +2,17 @@ class V1::PokemonsController < ApplicationController
   before_action :set_pokemon, only: [:show, :update, :destroy]
 
   def index
-    @pokemons = Pokemon.search(params[:name])
+    @pokemons = Pokemon.includes(:poketypes)
+                        .with_attached_sprite
+                        .search(params[:name])
+                        .order(:id)
     render json: @pokemons, status: :ok
   end
 
   def show
-    render json: @pokemon, status: :ok
+    render json: @pokemon,
+                 status: :ok,
+                 serializer: V1::PokemonSerializer::DetailedPokemon
   end
 
   def create
