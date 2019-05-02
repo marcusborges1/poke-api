@@ -13,9 +13,9 @@ class V1::PokemonSerializer < ActiveModel::Serializer
   end
 
   class DetailedPokemon < V1::PokemonSerializer
-    attribute :envolves_to
+    attribute :evolves_to
 
-    def envolves_to
+    def evolves_to
       object.evolutions.map { |evolution| DetailedPokemon.new(evolution).serializable_hash }
     end
   end
