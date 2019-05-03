@@ -69,7 +69,15 @@ RSpec.describe 'Pokemons API V1', type: :request do
 
   describe 'POST /v1/pokemon' do
     context 'when the request is valid' do
-      let(:valid_attributes) { { name: 'billy' } }
+      let!(:poketypes) { create_list(:poketype, 2) }
+      let(:poketype_ids) { poketypes.map { |poketype| poketype[:id] } }
+
+      let(:valid_attributes) { 
+        { 
+          name: 'billy',
+          type_ids: poketype_ids
+        } 
+      }
 
       before { post '/v1/pokemon', params: valid_attributes }
 
@@ -93,6 +101,10 @@ RSpec.describe 'Pokemons API V1', type: :request do
         expect(response.body)
           .to match(/Validation failed: Name can't be blank/)
       end
+    end
+
+    after(:context) do
+      Poketype.destroy_all
     end
   end
 

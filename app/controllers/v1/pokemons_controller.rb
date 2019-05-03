@@ -37,6 +37,6 @@ class V1::PokemonsController < ApplicationController
   end
 
   def pokemon_params
-    params.permit(:name, :sprite)
+    params.permit(:name, :sprite, type_ids: [])
   end
 end

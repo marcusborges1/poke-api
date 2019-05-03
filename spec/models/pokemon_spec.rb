@@ -9,6 +9,11 @@ RSpec.describe Pokemon, type: :model do
 
   it { is_expected.to validate_presence_of(:name) }
 
+  it 'is expected to has at least one poketype' do
+    pokemon_without_poketypes = Pokemon.new(name: 'billy')
+    expect(pokemon_without_poketypes.valid?).to be false
+  end
+
   describe '.search' do
     before(:context) do
       @pikachu = create(:pokemon, name: 'pikachu')
