@@ -5,6 +5,7 @@ class V1::PokemonSerializer < ActiveModel::Serializer
   attribute :poketypes, key: :types
 
   def sprite_url
+    return '' unless object.sprite.attached?
     rails_blob_url(object.sprite, only_path: true)
   end
 
