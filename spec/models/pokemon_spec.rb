@@ -14,6 +14,16 @@ RSpec.describe Pokemon, type: :model do
     expect(pokemon_without_poketypes.valid?).to be false
   end
 
+  it 'can have no evolutions' do
+    pokemon_with_no_evolutions = build(:pokemon)
+    expect(pokemon_with_no_evolutions.valid?).to be true
+  end
+
+  it 'can have one or more evolutions' do
+    pokemon_with_evolutions = build(:pokemon, :with_2_evolutions)
+    expect(pokemon_with_evolutions.valid?).to be true
+  end
+
   describe '.search' do
     before(:context) do
       @pikachu = create(:pokemon, name: 'pikachu')
