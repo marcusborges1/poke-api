@@ -1,7 +1,7 @@
 class V1::PokemonSerializer < ActiveModel::Serializer
   include Rails.application.routes.url_helpers
 
-  attributes :id, :name, :sprite_url, :evolution_chain_id
+  attributes :id, :name, :sprite_url
   attribute :poketypes, key: :types
 
   def sprite_url
