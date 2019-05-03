@@ -69,17 +69,19 @@ RSpec.describe 'Pokemons API V1', type: :request do
 
   describe 'POST /v1/pokemon' do
     context 'when the request is valid' do
-      let!(:poketypes) { create_list(:poketype, 2) }
-      let(:poketype_ids) { poketypes.map { |poketype| poketype[:id] } }
-
       let(:valid_attributes) { 
         { 
           name: 'billy',
-          type_ids: poketype_ids
+          type_ids: @poketype_ids,
+          evolution_ids: @evolution_ids
         } 
       }
 
-      before { post '/v1/pokemon', params: valid_attributes }
+      before do
+        @poketype_ids = create_list(:poketype, 2).map { |poketype| poketype[:id] }
+        @pokemon_ids = create_list(:pokemon, 2).map { |evolution| evolution[:id] }
+        post '/v1/pokemon', params: valid_attributes
+      end
 
       it 'creates a pokemon' do
         expect(json['name']).to eq('billy')
